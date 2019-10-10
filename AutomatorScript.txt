@@ -1,0 +1,15 @@
+# This script fetches the current directory from Finder and opens this one in a (new) Terminal window
+on run {input, parameters}
+	
+	tell application "Finder"
+		set myWin to window 1
+		set thePath to (quoted form of POSIX path of (target of myWin as alias))
+		tell application "Terminal"
+			if not (exists window 1) then reopen
+			activate
+			tell window 1
+				do script "cd " & thePath
+			end tell
+		end tell
+	end tell
+end run
